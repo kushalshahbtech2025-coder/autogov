@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+@theme {
+  /* ─── Primary: Deep Navy ─── */
+  --color-primary: #002045;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #0d1f3c;
+  --color-on-primary-container: #a5eff0;
+  --color-primary-fixed: #adc7f7;
+  --color-primary-fixed-dim: #6e9fe0;
+  --color-on-primary-fixed: #001020;
+  --color-on-primary-fixed-variant: #1a365d;
+
+  /* ─── Secondary: Teal ─── */
+  --color-secondary: #13696a;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #0a3a3b;
+  --color-on-secondary-container: #a5eff0;
+  --color-secondary-fixed: #a5eff0;
+  --color-secondary-fixed-dim: #6dd8da;
+  --color-on-secondary-fixed: #001820;
+  --color-on-secondary-fixed-variant: #004f50;
+
+  /* ─── Tertiary: Amber/Gold ─── */
+  --color-tertiary: #f8bc4b;
+  --color-on-tertiary: #1a0f00;
+  --color-tertiary-container: #3a2700;
+  --color-on-tertiary-container: #f8bc4b;
+  --color-tertiary-fixed: #f8bc4b;
+  --color-tertiary-fixed-dim: #d99e30;
+  --color-on-tertiary-fixed: #1a0f00;
+  --color-on-tertiary-fixed-variant: #5f4100;
+
+  /* ─── Dark Surfaces ─── */
+  --color-surface: #000c18;
+  --color-surface-dim: #000810;
+  --color-surface-bright: #061428;
+  --color-surface-variant: #0d1f3c;
+  --color-surface-container-lowest: #00060e;
+  --color-surface-container-low: #000f20;
+  --color-surface-container: #001428;
+  --color-surface-container-high: #001d38;
+  --color-surface-container-highest: #002045;
+
+  --color-on-surface: #e8f0ff;
+  --color-on-surface-variant: #a5b8d8;
+  --color-inverse-surface: #dce9ff;
+  --color-inverse-on-surface: #001428;
+
+  --color-outline: #2d4a6e;
+  --color-outline-variant: #1a3050;
+  --color-surface-tint: #a5eff0;
+
+  /* ─── Error ─── */
+  --color-error: #ff6b6b;
+  --color-on-error: #1a0000;
+  --color-error-container: #5c0a0a;
+  --color-on-error-container: #ffa5a5;
+
+  /* ─── Background ─── */
+  --color-background: #000c18;
+  --color-on-background: #e8f0ff;
+
+  /* ─── Fonts ─── */
+  --font-sans: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  --font-mono: 'Courier Prime', monospace;
+  --font-header: 'Algerian', fantasy, 'Times New Roman', serif;
+}
+
+/* =========================================================================
+   GLOBAL DARK BASE
+   ========================================================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: #000c18;
+  color: #e8f0ff;
+  min-height: 100vh;
+}
+
+/* Normal readable font for all headings on all pages */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif !important;
+  font-style: normal !important;
+  letter-spacing: normal !important;
+}
+
+/* Algerian only when explicitly requested (nav brand) */
+.header-font,
+.font-header,
+.algerian-header {
+  font-family: 'Algerian', fantasy, 'Times New Roman', serif !important;
+  font-style: italic !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* =========================================================================
+   GLOBAL DARK OVERRIDES — Forces landing colour grading on all pages
+   ========================================================================= */
+
+/* App wrapper */
+.app-root {
+  background: #000c18 !important;
+  color: #e8f0ff !important;
+}
+
+/* ── Backgrounds ── */
+.bg-\[\#f8f9ff\],
+.bg-\[\#eff4ff\],
+.bg-\[\#e5eeff\],
+.bg-\[\#dce9ff\] {
+  background-color: #000f20 !important;
+}
+
+.bg-white {
+  background-color: #001428 !important;
+}
+
+/* ── Text ── */
+.text-\[\#0d1c2e\],
+.text-\[\#002045\] {
+  color: #e8f0ff !important;
+}
+
+.text-\[\#43474e\] {
+  color: #a5b8d8 !important;
+}
+
+.text-\[\#74777f\] {
+  color: #7a96b8 !important;
+}
+
+/* ── Borders ── */
+.border-\[\#c4c6cf\] {
+  border-color: #1a3050 !important;
+}
+
+.border-\[\#c4c6cf\]\/60,
+.border-\[\#c4c6cf\]\/40 {
+  border-color: rgba(26, 48, 80, 0.6) !important;
+}
+
+/* ── Cards & panels ── */
+.rounded-xl,
+.rounded-lg {
+  /* Keep shape, override bg via specific classes below */
+}
+
+/* Tables */
+thead tr.bg-\[\#002045\] {
+  background-color: #001428 !important;
+  border-bottom: 1px solid #1a3050 !important;
+}
+
+/* Zebra rows */
+.zebra-row:nth-child(even) {
+  background-color: #000f20 !important;
+}
+
+.hover\:bg-\[\#eff4ff\]:hover {
+  background-color: #001428 !important;
+}
+
+/* ── Glass card (used on floating cards) ── */
+.glass-card {
+  background: rgba(0, 20, 40, 0.88) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(165, 239, 240, 0.18) !important;
+}
+
+/* ── Scrollbars ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000810;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a3050;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2d4a6e;
+}
+
+/* ── Animations ── */
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(450%); }
+}
+.animate-scan {
+  animation: scanline 3s linear infinite;
+}
+
+/* ── Dark panel utility ── */
+.dark-panel {
+  background: rgba(0, 14, 40, 0.80);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(165, 239, 240, 0.14);
+  border-radius: 1rem;
+}
+
+/* ── Teal glow utility ── */
+.teal-glow {
+  box-shadow: 0 0 24px rgba(165, 239, 240, 0.25);
+}
+
+/* ── Amber glow utility ── */
+.amber-glow {
+  box-shadow: 0 0 24px rgba(248, 188, 75, 0.30);
+}

@@ -1,0 +1,47 @@
+{
+  "model_architecture": "AutoGovVerificationNet (TabularResNet)",
+  "input_dimension": 22,
+  "classes": {
+    "0": "PASS",
+    "1": "MANUAL_REVIEW",
+    "2": "FAIL"
+  },
+  "service_categories": [
+    "AGRICULTURE",
+    "BUSINESS_LICENSE",
+    "EDUCATION",
+    "HEALTHCARE",
+    "HOUSING",
+    "PENSION"
+  ],
+  "states": [
+    "Delhi",
+    "Gujarat",
+    "Karnataka",
+    "Maharashtra",
+    "Tamil Nadu",
+    "Uttar Pradesh"
+  ],
+  "doc_statuses": [
+    "EXPIRED",
+    "FLAGGED",
+    "VALID"
+  ],
+  "continuous_stats": {
+    "mean": [
+      0.7093475461006165,
+      0.35007718205451965,
+      0.1463543027639389,
+      -0.005995829124003649
+    ],
+    "std": [
+      0.20379281044006348,
+      0.25463342666625977,
+      0.18003642559051514,
+      0.6416033506393433
+    ]
+  },
+  "device_trained_on": "cuda",
+  "best_val_accuracy": 96.27,
+  "best_val_loss": 0.1773
+}

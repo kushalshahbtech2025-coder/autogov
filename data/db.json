@@ -1,0 +1,698 @@
+{
+  "applications": [
+    {
+      "applicantName": "Deepak Rao",
+      "serviceType": "income_certificate",
+      "serviceLabel": "Revenue & Income Certificate",
+      "riskScore": 78,
+      "aiVerdict": "WRONG",
+      "aiVerdictReason": "AI Response: WRONG. Anomaly in seal.",
+      "id": "AG-2026-3320",
+      "trackingId": "AGV-5523-NEW",
+      "submissionDate": "Sep 29, 2026",
+      "status": "REVIEW_REQUIRED",
+      "correctionNote": "Officer verified seal manually",
+      "extractedEntities": [
+        {
+          "id": "e1",
+          "field": "Applicant Name",
+          "value": "Deepak Rao (Verified)",
+          "status": "valid",
+          "confidence": 100
+        }
+      ],
+      "reviewedBy": "Officer J. Smith (Alpha-04)",
+      "reviewedAt": "Sep 29, 2026, 10:57 AM"
+    },
+    {
+      "applicantName": "Test Citizen",
+      "serviceType": "income_certificate",
+      "serviceLabel": "Income Certificate Verification",
+      "riskScore": 75,
+      "aiVerdict": "WRONG",
+      "aiVerdictReason": "AI Response: WRONG. Anomaly in seal.",
+      "id": "AG-2026-1050",
+      "trackingId": "AGV-5817-NEW",
+      "submissionDate": "Sep 29, 2026",
+      "status": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "AG-2026-1049",
+      "trackingId": "AGV-9284-KXL",
+      "applicantName": "Doe, J.",
+      "serviceType": "income_certificate",
+      "serviceLabel": "Income Certificate Verification",
+      "submissionDate": "Oct 24, 2026",
+      "status": "REVIEW_REQUIRED",
+      "riskScore": 72,
+      "confidence": 68.4,
+      "documentUrl": "/sample_itr_sahaj.jpg",
+      "documentType": "Official ITR-1 Sahaj Form (AY 2023-24)",
+      "documentPages": 2,
+      "extractedEntities": [
+        {
+          "id": "e1",
+          "field": "Full Name",
+          "value": "Doe, J.",
+          "status": "valid",
+          "confidence": 99.4,
+          "boundingBox": {
+            "top": "18%",
+            "left": "12%",
+            "width": "42%",
+            "height": "5%"
+          }
+        },
+        {
+          "id": "e2",
+          "field": "Date of Birth",
+          "value": "1982-05-14",
+          "status": "valid",
+          "confidence": 98.9,
+          "boundingBox": {
+            "top": "24%",
+            "left": "12%",
+            "width": "30%",
+            "height": "4%"
+          }
+        },
+        {
+          "id": "e3",
+          "field": "Reported Income",
+          "value": "₹ 45,00,000",
+          "status": "mismatch",
+          "confidence": 84.2,
+          "boundingBox": {
+            "top": "48%",
+            "left": "28%",
+            "width": "38%",
+            "height": "6%"
+          }
+        },
+        {
+          "id": "e4",
+          "field": "Address",
+          "value": "Block 4, Sector 12, New Delhi",
+          "status": "valid",
+          "confidence": 97.5,
+          "boundingBox": {
+            "top": "60%",
+            "left": "36%",
+            "width": "56%",
+            "height": "6%"
+          }
+        },
+        {
+          "id": "e5",
+          "field": "Permanent Account Number",
+          "value": "ABCDE1234F",
+          "status": "valid",
+          "confidence": 99.1,
+          "boundingBox": {
+            "top": "32%",
+            "left": "12%",
+            "width": "28%",
+            "height": "4%"
+          }
+        },
+        {
+          "id": "e6",
+          "field": "Digital Signature Hash",
+          "value": "0x8f9c...4e1a (Mismatch vs Registry)",
+          "status": "mismatch",
+          "confidence": 62,
+          "boundingBox": {
+            "top": "75%",
+            "left": "42%",
+            "width": "40%",
+            "height": "8%"
+          }
+        }
+      ],
+      "findings": [
+        {
+          "id": "f1",
+          "title": "Signature mismatch",
+          "impactScore": 24,
+          "severity": "high",
+          "icon": "draw",
+          "description": "Digital seal vector divergence exceeds 0.32 tolerance compared to state biometric authority."
+        },
+        {
+          "id": "f2",
+          "title": "Income inconsistency",
+          "impactScore": 19,
+          "severity": "medium",
+          "icon": "account_balance",
+          "description": "Reported income of ₹45,00,000 exceeds threshold cross-referenced with Central Board of Direct Taxes API."
+        },
+        {
+          "id": "f3",
+          "title": "Document anomaly",
+          "impactScore": 16,
+          "severity": "medium",
+          "icon": "plagiarism",
+          "description": "Micro-font grid misalignment detected in Section 139(1) bounding box area."
+        }
+      ],
+      "shapFeatures": [
+        {
+          "name": "sig_vector_dist",
+          "label": "Signature Vector Distance",
+          "value": 0.24,
+          "formattedValue": "+0.24",
+          "color": "error"
+        },
+        {
+          "name": "reported_vs_db_income",
+          "label": "Reported vs CBDT Income Delta",
+          "value": 0.19,
+          "formattedValue": "+0.19",
+          "color": "tertiary"
+        },
+        {
+          "name": "doc_layout_variance",
+          "label": "Layout Grid Variance",
+          "value": 0.16,
+          "formattedValue": "+0.16",
+          "color": "tertiary"
+        },
+        {
+          "name": "pan_registry_match",
+          "label": "PAN Registry Validation",
+          "value": -0.08,
+          "formattedValue": "-0.08",
+          "color": "secondary"
+        },
+        {
+          "name": "geo_jurisdiction_check",
+          "label": "Jurisdiction Proximity",
+          "value": -0.05,
+          "formattedValue": "-0.05",
+          "color": "secondary"
+        }
+      ],
+      "recommendation": {
+        "action": "manual_review",
+        "summary": "Manual review recommended due to critical signature mismatch and income inconsistencies against historical records."
+      }
+    },
+    {
+      "id": "AG-2026-0982",
+      "trackingId": "AGV-8142-MNT",
+      "applicantName": "Smith, J.",
+      "serviceType": "income_certificate",
+      "serviceLabel": "Income Certificate Verification",
+      "submissionDate": "Oct 24, 2026",
+      "status": "AUTO_CLEARED",
+      "riskScore": 3,
+      "confidence": 99.8,
+      "documentUrl": "/sample_affidavit.jpg",
+      "documentType": "Official Income Affidavit (Verified QR)",
+      "documentPages": 1,
+      "extractedEntities": [
+        {
+          "id": "e10",
+          "field": "Full Name",
+          "value": "Smith, Jonathan E.",
+          "status": "valid",
+          "confidence": 99.9
+        },
+        {
+          "id": "e11",
+          "field": "Date of Birth",
+          "value": "1990-11-22",
+          "status": "valid",
+          "confidence": 99.8
+        },
+        {
+          "id": "e12",
+          "field": "Reported Income",
+          "value": "₹ 8,40,000",
+          "status": "valid",
+          "confidence": 99.6
+        },
+        {
+          "id": "e13",
+          "field": "Address",
+          "value": "Flat 302, Green Glen, Bangalore",
+          "status": "valid",
+          "confidence": 99.7
+        }
+      ],
+      "findings": [],
+      "shapFeatures": [
+        {
+          "name": "qr_cryptographic_sign",
+          "label": "Cryptographic QR Match",
+          "value": -0.45,
+          "formattedValue": "-0.45",
+          "color": "secondary"
+        },
+        {
+          "name": "db_tax_consistency",
+          "label": "Tax Database Parity",
+          "value": -0.38,
+          "formattedValue": "-0.38",
+          "color": "secondary"
+        }
+      ],
+      "recommendation": {
+        "action": "auto_clear",
+        "summary": "Auto-Cleared. ID matches state registry with zero anomaly flags. Certified under Rule 4A."
+      }
+    },
+    {
+      "id": "AG-2026-1104",
+      "trackingId": "AGV-3391-PLQ",
+      "applicantName": "Sharma, Priya",
+      "serviceType": "domicile_certificate",
+      "serviceLabel": "Domicile Certificate Verification",
+      "submissionDate": "Oct 23, 2026",
+      "status": "IN_PROGRESS",
+      "riskScore": 28,
+      "confidence": 88.5,
+      "documentUrl": "/sample_affidavit.jpg",
+      "documentType": "Continuous Residence Record (10-Yr)",
+      "documentPages": 3,
+      "extractedEntities": [
+        {
+          "id": "e20",
+          "field": "Full Name",
+          "value": "Sharma, Priya",
+          "status": "valid",
+          "confidence": 99.2
+        },
+        {
+          "id": "e21",
+          "field": "Tenure Years",
+          "value": "12 Years (Verified)",
+          "status": "valid",
+          "confidence": 94
+        },
+        {
+          "id": "e22",
+          "field": "Utility Bill Hash",
+          "value": "Match with State Power Grid",
+          "status": "valid",
+          "confidence": 96.3
+        }
+      ],
+      "findings": [
+        {
+          "id": "f21",
+          "title": "Minor Address String Variant",
+          "impactScore": 8,
+          "severity": "low",
+          "icon": "location_on",
+          "description": "Postal code matches; minor abbreviation detected in street name."
+        }
+      ],
+      "shapFeatures": [
+        {
+          "name": "utility_crosscheck",
+          "label": "Utility Grid Crosscheck",
+          "value": -0.22,
+          "formattedValue": "-0.22",
+          "color": "secondary"
+        },
+        {
+          "name": "text_fuzz_ratio",
+          "label": "Address Fuzzy Match",
+          "value": 0.08,
+          "formattedValue": "+0.08",
+          "color": "tertiary"
+        }
+      ],
+      "recommendation": {
+        "action": "auto_clear",
+        "summary": "Eligible for straight-through approval following background database sync."
+      }
+    },
+    {
+      "id": "AG-2026-0855",
+      "trackingId": "AGV-5520-WER",
+      "applicantName": "Patel, K.",
+      "serviceType": "business_license",
+      "serviceLabel": "Commercial Enterprise Registration",
+      "submissionDate": "Oct 22, 2026",
+      "status": "APPROVED",
+      "riskScore": 6,
+      "confidence": 99.4,
+      "documentUrl": "/sample_affidavit.jpg",
+      "documentType": "GSTIN & Trade Incorporation Certificate",
+      "documentPages": 2,
+      "extractedEntities": [
+        {
+          "id": "e30",
+          "field": "Entity Name",
+          "value": "Patel Logistics LLP",
+          "status": "valid",
+          "confidence": 99.7
+        },
+        {
+          "id": "e31",
+          "field": "GSTIN Status",
+          "value": "ACTIVE / COMPLIANT",
+          "status": "valid",
+          "confidence": 100
+        },
+        {
+          "id": "e32",
+          "field": "Authorized Signatory",
+          "value": "Patel, K. V.",
+          "status": "valid",
+          "confidence": 99.5
+        }
+      ],
+      "findings": [],
+      "shapFeatures": [
+        {
+          "name": "gstn_api_check",
+          "label": "GSTN Gateway Response",
+          "value": -0.52,
+          "formattedValue": "-0.52",
+          "color": "secondary"
+        }
+      ],
+      "recommendation": {
+        "action": "auto_clear",
+        "summary": "Verified and approved by Officer J. Smith on Oct 22, 2026."
+      },
+      "reviewedBy": "Officer J. Smith (Alpha-04)",
+      "reviewedAt": "Oct 22, 2026, 14:12 IST",
+      "reviewNotes": "Standard incorporation documents cross-verified with corporate affairs ledger."
+    },
+    {
+      "id": "AG-2026-0741",
+      "trackingId": "AGV-1198-ZXC",
+      "applicantName": "Mehta, S.",
+      "serviceType": "land_registry",
+      "serviceLabel": "Land Title Registry Verification",
+      "submissionDate": "Oct 21, 2026",
+      "status": "REJECTED",
+      "riskScore": 89,
+      "confidence": 42.1,
+      "documentUrl": "/sample_itr_sahaj.jpg",
+      "documentType": "Deed of Conveyance (Survey No. 84/2)",
+      "documentPages": 4,
+      "extractedEntities": [
+        {
+          "id": "e40",
+          "field": "Claimant",
+          "value": "Mehta, S. R.",
+          "status": "valid",
+          "confidence": 91
+        },
+        {
+          "id": "e41",
+          "field": "Survey Plot No.",
+          "value": "84/2 (Disputed Boundary)",
+          "status": "warning",
+          "confidence": 60.5
+        },
+        {
+          "id": "e42",
+          "field": "Sub-Registrar Stamp",
+          "value": "Forged Stamp Signature",
+          "status": "mismatch",
+          "confidence": 32
+        }
+      ],
+      "findings": [
+        {
+          "id": "f41",
+          "title": "Counterfeit Stamp Seal",
+          "impactScore": 42,
+          "severity": "high",
+          "icon": "gpp_bad",
+          "description": "Embossing contour analysis detected flat digital clone of 2019 departmental seal."
+        },
+        {
+          "id": "f42",
+          "title": "Active Encumbrance Lien",
+          "impactScore": 35,
+          "severity": "high",
+          "icon": "lock",
+          "description": "Plot 84/2 is locked under active civil court restraint order #CIV-8921."
+        }
+      ],
+      "shapFeatures": [
+        {
+          "name": "seal_stamp_authenticity",
+          "label": "Seal Vector Geometry",
+          "value": 0.42,
+          "formattedValue": "+0.42",
+          "color": "error"
+        },
+        {
+          "name": "encumbrance_registry",
+          "label": "Encumbrance Flag",
+          "value": 0.35,
+          "formattedValue": "+0.35",
+          "color": "error"
+        }
+      ],
+      "recommendation": {
+        "action": "reject",
+        "summary": "Rejected due to counterfeit departmental seal and active civil court restraint."
+      },
+      "reviewedBy": "Senior Registrar M. Rao",
+      "reviewedAt": "Oct 21, 2026, 16:45 IST",
+      "reviewNotes": "Flagged for departmental vigilance audit and FIR referral."
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "aud-1790671373813",
+      "timestamp": "2026-09-29 08:42:53",
+      "applicationId": "AG-2026-VERIFY-1",
+      "officer": "Officer J. Smith (Alpha-04)",
+      "action": "OFFICER_APPROVED",
+      "details": "Officer approved after field correction.",
+      "type": "officer_action"
+    },
+    {
+      "id": "aud-1790671373806",
+      "timestamp": "2026-09-29 08:42:53",
+      "applicationId": "AG-2026-VERIFY-1",
+      "officer": "Officer J. Smith (Alpha-04)",
+      "action": "OFFICER_FIELD_CORRECTION",
+      "details": "Officer verified true land owner record.",
+      "type": "officer_action"
+    },
+    {
+      "id": "aud-1790671373750",
+      "timestamp": "2026-09-29 08:42:53",
+      "applicationId": "AG-2026-VERIFY-1",
+      "officer": "Citizen Ingestion Portal",
+      "action": "APPLICATION_SUBMITTED",
+      "details": "New submission created for Priya Sengupta (Land Registry Title Deed). Risk Score: 78.",
+      "type": "system_event"
+    },
+    {
+      "id": "aud-1790665634328",
+      "timestamp": "2026-09-29 07:07:14",
+      "applicationId": "AG-2026-TEST1",
+      "officer": "Citizen Ingestion Portal",
+      "action": "APPLICATION_SUBMITTED",
+      "details": "New submission created for Meera Deshmukh (Land Registry Title Deed). Risk Score: 78.",
+      "type": "system_event"
+    },
+    {
+      "id": "aud-1790659639250",
+      "timestamp": "2026-09-29 05:27:19",
+      "applicationId": "AG-2026-3320",
+      "officer": "Officer J. Smith (Alpha-04)",
+      "action": "OFFICER_FIELD_CORRECTION",
+      "details": "Officer verified seal manually",
+      "type": "officer_action"
+    },
+    {
+      "id": "aud-1790659639218",
+      "timestamp": "2026-09-29 05:27:19",
+      "applicationId": "AG-2026-3320",
+      "officer": "Citizen Ingestion Portal",
+      "action": "APPLICATION_SUBMITTED",
+      "details": "New submission created for Deepak Rao (Revenue & Income Certificate). Risk Score: 78.",
+      "type": "system_event"
+    },
+    {
+      "id": "aud-1790659562796",
+      "timestamp": "2026-09-29 05:26:02",
+      "applicationId": "AG-2026-1050",
+      "officer": "Citizen Ingestion Portal",
+      "action": "APPLICATION_SUBMITTED",
+      "details": "New submission created for Test Citizen (Income Certificate Verification). Risk Score: 75.",
+      "type": "system_event"
+    },
+    {
+      "id": "aud-109",
+      "timestamp": "2026-10-24 14:02:18",
+      "applicationId": "AG-2026-1049",
+      "officer": "FraudNet-v4 (Autonomous)",
+      "action": "RISK_SCORE_ELEVATED",
+      "details": "Calculated risk score 72/100 (+24 signature variance, +19 income discrepancy). Flagged for Officer Review.",
+      "type": "ai_decision"
+    },
+    {
+      "id": "aud-108",
+      "timestamp": "2026-10-24 13:58:02",
+      "applicationId": "AG-2026-1049",
+      "officer": "Citizen Portal Gateway",
+      "action": "INGESTION_COMPLETE",
+      "details": "File uploaded: ITR-1_Sahaj_2023-24.pdf (SHA256: 7f3a...c821). OCR extracted 6 key entities.",
+      "type": "system_event"
+    },
+    {
+      "id": "aud-107",
+      "timestamp": "2026-10-24 11:30:15",
+      "applicationId": "AG-2026-0982",
+      "officer": "AutoGov+ Zero-Trust Engine",
+      "action": "AUTO_CLEAR_ISSUED",
+      "details": "100% cryptographic certificate match with State Direct Benefits Registry. Cleared in 1.4 seconds.",
+      "type": "ai_decision"
+    },
+    {
+      "id": "aud-106",
+      "timestamp": "2026-10-22 14:12:44",
+      "applicationId": "AG-2026-0855",
+      "officer": "Officer J. Smith (ID: ALP-04)",
+      "action": "MANUAL_APPROVAL",
+      "details": "Approved application following GSTIN cross-verification. Digital certificate issued.",
+      "type": "officer_action"
+    },
+    {
+      "id": "aud-105",
+      "timestamp": "2026-10-21 16:45:09",
+      "applicationId": "AG-2026-0741",
+      "officer": "Senior Registrar M. Rao",
+      "action": "REJECTION_FINALIZED",
+      "details": "Case rejected. Reason: Counterfeit seal stamp identified by FraudNet-v4 forensic analysis.",
+      "type": "officer_action"
+    }
+  ],
+  "techStack": [
+    {
+      "id": "frontend",
+      "tier": "Frontend & Officer UI",
+      "category": "frontend",
+      "primaryTech": "React.js 18 + Tailwind CSS",
+      "secondaryFallback": "PWA Service Worker + IndexedDB",
+      "roleAndSla": "Zero-glare caseworker canvas, offline dossiers (< 100ms render)",
+      "status": "ACTIVE",
+      "activeRecordsCount": 5,
+      "healthScore": 99.9,
+      "lastUpdated": "Live Active"
+    },
+    {
+      "id": "backend",
+      "tier": "Backend & Orchestration",
+      "category": "backend",
+      "primaryTech": "FastAPI (Async Python 3.11)",
+      "secondaryFallback": "Django REST Framework (Enterprise RBAC)",
+      "roleAndSla": "Asynchronous multi-model dispatch (< 1,850ms SLA)",
+      "status": "ACTIVE",
+      "activeRecordsCount": 5,
+      "healthScore": 99.8,
+      "lastUpdated": "Live Active"
+    },
+    {
+      "id": "ocr-ner",
+      "tier": "OCR & Token Extraction",
+      "category": "ai-ml",
+      "primaryTech": "Tesseract 5.3 + Vision API",
+      "secondaryFallback": "HuggingFace Transformer NER (IndicBERT/RoBERTa)",
+      "roleAndSla": "2D coordinate bounding box entity extraction (18 languages)",
+      "status": "ACTIVE",
+      "activeRecordsCount": 5,
+      "healthScore": 99.7,
+      "lastUpdated": "Live Active"
+    },
+    {
+      "id": "forgery-cnn",
+      "tier": "Visual Forgery Detection",
+      "category": "ai-ml",
+      "primaryTech": "PyTorch CNN (ResNet-50)",
+      "secondaryFallback": "Error Level Analysis (ELA) Compression Deltas",
+      "roleAndSla": "JPEG quantization artifact & clone-stamp splice detection",
+      "status": "ACTIVE",
+      "activeRecordsCount": 5,
+      "healthScore": 99.4,
+      "lastUpdated": "Live Active"
+    },
+    {
+      "id": "risk-engine",
+      "tier": "Composite Risk Scoring",
+      "category": "ai-ml",
+      "primaryTech": "XGBoost 2.0 (Gradient Boosted Trees)",
+      "secondaryFallback": "scikit-learn Calibrated Pipeline",
+      "roleAndSla": "42 statutory feature tree evaluation (0-100 risk score)",
+      "status": "ACTIVE",
+      "activeRecordsCount": 5,
+      "healthScore": 99.6,
+      "lastUpdated": "Live Active"
+    },
+    {
+      "id": "dedup-faiss",
+      "tier": "Entity Resolution & Dedup",
+      "category": "ai-ml",
+      "primaryTech": "Sentence-Transformers (MiniLM-L6)",
+      "secondaryFallback": "FAISS Vector Index (IVFFlat)",
+      "roleAndSla": "Sub-12ms semantic duplicate & phonetic alias identification",
+      "status": "ACTIVE",
+      "activeRecordsCount": 5,
+      "healthScore": 99.9,
+      "lastUpdated": "Live Active"
+    },
+    {
+      "id": "explainability-shap",
+      "tier": "Explainable AI (XAI)",
+      "category": "ai-ml",
+      "primaryTech": "SHAP TreeExplainer",
+      "secondaryFallback": "Marginal Attribution Vectors",
+      "roleAndSla": "Court-admissible, statutory decision justification logs",
+      "status": "ACTIVE",
+      "activeRecordsCount": 5,
+      "healthScore": 100,
+      "lastUpdated": "Live Active"
+    },
+    {
+      "id": "mlops-mlflow",
+      "tier": "MLOps & Drift Control",
+      "category": "infra-sec",
+      "primaryTech": "MLflow Model Registry",
+      "secondaryFallback": "Scheduled Retraining Crons + Prometheus",
+      "roleAndSla": "Weekly validation gates & zero-regression shadow deployment",
+      "status": "ACTIVE",
+      "activeRecordsCount": 5,
+      "healthScore": 99.5,
+      "lastUpdated": "Live Active"
+    },
+    {
+      "id": "data-persistence",
+      "tier": "Data Persistence & Cloud",
+      "category": "infra-sec",
+      "primaryTech": "PostgreSQL 16 (pgvector)",
+      "secondaryFallback": "Docker + NGINX + Sovereign Gov Cloud VM",
+      "roleAndSla": "ACID compliance, vector search, sovereign server enclaves",
+      "status": "ACTIVE",
+      "activeRecordsCount": 5,
+      "healthScore": 99.9,
+      "lastUpdated": "Live Active"
+    },
+    {
+      "id": "security-auth",
+      "tier": "Security & Auth Standard",
+      "category": "infra-sec",
+      "primaryTech": "JWT (Ed25519) + AES-256 (At Rest)",
+      "secondaryFallback": "TLS 1.3 Strict + Hardware HSM Keys",
+      "roleAndSla": "FedRAMP High, ISO 27001, Zero-Trust Access Protocol",
+      "status": "ACTIVE",
+      "activeRecordsCount": 5,
+      "healthScore": 100,
+      "lastUpdated": "Live Active"
+    }
+  ],
+  "updatedAt": "2026-09-29T08:42:53.835Z"
+}
