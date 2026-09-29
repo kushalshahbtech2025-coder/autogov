@@ -86,63 +86,74 @@ def create_perfect_presentation():
     if os.path.exists(LOGO_SIH_TOP):
         s1.shapes.add_picture(LOGO_SIH_TOP, Inches(8.8), Inches(0.35), width=Inches(1.85), height=Inches(0.95))
 
-    # Top Center Title
+    # Top Center Title (Times New Roman Bold 30pt - exact match to template)
     tb_s1_top = s1.shapes.add_textbox(Inches(1.5), Inches(0.35), Inches(7.2), Inches(0.6))
     tf_s1_top = tb_s1_top.text_frame
     p_s1_top = tf_s1_top.paragraphs[0]
     p_s1_top.text = "SMART INDIA HACKATHON 2025"
-    p_s1_top.font.name = "Calibri"
-    p_s1_top.font.size = Pt(28)
+    p_s1_top.font.name = "Times New Roman"
+    p_s1_top.font.size = Pt(29)
     p_s1_top.font.bold = True
     p_s1_top.font.color.rgb = HEADER_BLUE
     p_s1_top.alignment = PP_ALIGN.CENTER
 
     # Subtitle: TITLE PAGE (Times New Roman)
-    tb_s1_sub = s1.shapes.add_textbox(Inches(2.5), Inches(1.1), Inches(5.2), Inches(0.5))
+    tb_s1_sub = s1.shapes.add_textbox(Inches(2.5), Inches(1.05), Inches(5.2), Inches(0.5))
     tf_s1_sub = tb_s1_sub.text_frame
     p_s1_sub = tf_s1_sub.paragraphs[0]
     p_s1_sub.text = "TITLE PAGE"
     p_s1_sub.font.name = "Times New Roman"
-    p_s1_sub.font.size = Pt(22)
+    p_s1_sub.font.size = Pt(24)
     p_s1_sub.font.bold = True
     p_s1_sub.font.color.rgb = BLACK
     p_s1_sub.alignment = PP_ALIGN.CENTER
 
     # Left bullet list
-    tb_s1_left = s1.shapes.add_textbox(Inches(0.4), Inches(1.8), Inches(6.0), Inches(5.6))
+    tb_s1_left = s1.shapes.add_textbox(Inches(0.4), Inches(1.75), Inches(6.0), Inches(5.8))
     tf_s1_left = tb_s1_left.text_frame
     tf_s1_left.word_wrap = True
 
     s1_bullets = [
-        ("Problem Statement ID - ", "SIH26102"),
-        ("Problem Statement Title  - ", "AI-powered system to detect anomalies, fraud, and inefficiencies in MPLAD Scheme implementation regd."),
-        ("Theme  - ", "Smart Governance, e-Governance and Smart Automation"),
-        ("PS Category - ", "Software"),
-        ("Team ID – ", "T049"),
-        ("Team Name – ", "Innova8")
+        ("Problem Statement ID - ", "SIH26102", None),
+        ("Problem Statement Title  - ", "AI-powered system to detect anomalies, fraud, and inefficiencies in MPLAD Scheme implementation regd.", None),
+        ("Theme  - ", "Smart Governance, e-Governance and Smart Automation", None),
+        ("PS Category - ", "Software", None),
+        ("Team ID – ", "T049", None),
+        ("Team Name – ", "Innova8", None),
+        ("Live Prototype URL – ", "https://printed-blind-lil-arch.trycloudflare.com", "https://printed-blind-lil-arch.trycloudflare.com"),
+        ("GitHub Repository – ", "https://github.com/kushalshahbtech2025-coder/autogov", "https://github.com/kushalshahbtech2025-coder/autogov")
     ]
-    for idx, (lbl, val) in enumerate(s1_bullets):
+    for idx, (lbl, val, link_url) in enumerate(s1_bullets):
         p = tf_s1_left.paragraphs[0] if idx == 0 else tf_s1_left.add_paragraph()
-        p.space_after = Pt(14)
+        p.space_after = Pt(7)
         p.font.name = "Calibri"
 
         r_dot = p.add_run()
         r_dot.text = "•  "
+        r_dot.font.name = "Arial"
         r_dot.font.bold = True
-        r_dot.font.size = Pt(14)
+        r_dot.font.size = Pt(12)
         r_dot.font.color.rgb = BLACK
 
         r_lbl = p.add_run()
         r_lbl.text = lbl
+        r_lbl.font.name = "Calibri"
         r_lbl.font.bold = True
-        r_lbl.font.size = Pt(14)
+        r_lbl.font.size = Pt(12)
         r_lbl.font.color.rgb = BLACK
 
         r_val = p.add_run()
         r_val.text = val
-        r_val.font.italic = True
-        r_val.font.size = Pt(14)
-        r_val.font.color.rgb = SUBTITLE_BLUE
+        r_val.font.name = "Calibri"
+        r_val.font.size = Pt(12)
+        if link_url:
+            r_val.font.bold = True
+            r_val.font.underline = True
+            r_val.font.color.rgb = RGBColor(0, 102, 204)
+            r_val.hyperlink.address = link_url
+        else:
+            r_val.font.italic = True
+            r_val.font.color.rgb = SUBTITLE_BLUE
 
     # Center/Right: Bulb Graphic
     if os.path.exists(LOGO_SIH_BULB):
@@ -210,38 +221,48 @@ def create_perfect_presentation():
     tf_s3_left.word_wrap = True
 
     stack_items = [
-        ("Frontend", "— React.js, Tailwind, PWA officer dashboard"),
-        ("Backend/API", "— FastAPI or Django REST, orchestrates the pipeline"),
-        ("OCR/NLP", "— Tesseract/Vision API + HuggingFace NER"),
-        ("Forgery detection", "— PyTorch CNN, ELA-based"),
-        ("Risk scoring", "— XGBoost / scikit-learn"),
-        ("Entity matching", "— Sentence-Transformers + FAISS"),
-        ("Explainability", "— SHAP"),
-        ("MLOps", "— MLflow, scheduled retraining"),
-        ("Data/Infra", "— PostgreSQL, Docker/NGINX, gov cloud VM"),
-        ("Security", "— JWT auth, AES-256 at rest, TLS 1.3 in transit")
+        ("Frontend", "— React.js, Tailwind, PWA officer dashboard", None),
+        ("Backend/API", "— Node.js / Express + Tesseract OCR engine", None),
+        ("OCR/Extraction", "— Tesseract.js in-process real engine + NER", None),
+        ("Forgery detection", "— PyTorch CNN, ELA-based artifact detector", None),
+        ("Risk scoring", "— XGBoost / scikit-learn risk engine", None),
+        ("Entity matching", "— Sentence-Transformers + FAISS deduplication", None),
+        ("Explainability", "— SHAP feature contribution tree", None),
+        ("MLOps", "— MLflow & automated dataset retraining", None),
+        ("Data/Infra", "— PostgreSQL, Docker, Cloudflare Zero Trust", None),
+        ("Security", "— JWT auth, AES-256 at rest, TLS 1.3 in transit", None),
+        ("Live Prototype", "— https://printed-blind-lil-arch.trycloudflare.com (PWA Gateway)", "https://printed-blind-lil-arch.trycloudflare.com")
     ]
-    for idx, (cat, desc) in enumerate(stack_items):
+    for idx, (cat, desc, link_url) in enumerate(stack_items):
         p = tf_s3_left.paragraphs[0] if idx == 0 else tf_s3_left.add_paragraph()
-        p.space_after = Pt(6)
+        p.space_after = Pt(5)
         p.font.name = "Calibri"
 
         r_dot = p.add_run()
         r_dot.text = "•  "
+        r_dot.font.name = "Arial"
         r_dot.font.bold = True
         r_dot.font.size = Pt(10.5)
         r_dot.font.color.rgb = BLACK
 
         r_cat = p.add_run()
         r_cat.text = cat + " "
+        r_cat.font.name = "Calibri"
         r_cat.font.bold = True
         r_cat.font.size = Pt(10.5)
         r_cat.font.color.rgb = BLACK
 
         r_desc = p.add_run()
         r_desc.text = desc
+        r_desc.font.name = "Calibri"
         r_desc.font.size = Pt(10.5)
-        r_desc.font.color.rgb = BLACK
+        if link_url:
+            r_desc.font.bold = True
+            r_desc.font.underline = True
+            r_desc.font.color.rgb = RGBColor(0, 102, 204)
+            r_desc.hyperlink.address = link_url
+        else:
+            r_desc.font.color.rgb = BLACK
 
     # Diagram on right
     img3 = "sih_slides_img/page_3_img_2_Image2.jpg"
@@ -459,8 +480,52 @@ def create_perfect_presentation():
         r_dot.font.color.rgb = BLACK
         r_txt = p.add_run()
         r_txt.text = pt
+        r_txt.font.name = "Calibri"
         r_txt.font.size = Pt(11.5)
         r_txt.font.color.rgb = BLACK
+
+    # Prototype & Live Links section
+    p_proto = tf_s6_left.add_paragraph()
+    p_proto.space_before = Pt(12)
+    p_proto.space_after = Pt(6)
+    p_proto.text = "Prototype & Live Deployment"
+    p_proto.font.name = "Calibri"
+    p_proto.font.size = Pt(13)
+    p_proto.font.bold = True
+    p_proto.font.underline = True
+    p_proto.font.color.rgb = SUBTITLE_BLUE
+
+    s6_links = [
+        ("Live Prototype: ", "https://printed-blind-lil-arch.trycloudflare.com", "https://printed-blind-lil-arch.trycloudflare.com"),
+        ("Source Code (GitHub): ", "https://github.com/kushalshahbtech2025-coder/autogov", "https://github.com/kushalshahbtech2025-coder/autogov")
+    ]
+    for lbl, val, url in s6_links:
+        p = tf_s6_left.add_paragraph()
+        p.space_after = Pt(5)
+        p.font.name = "Calibri"
+
+        r_dot = p.add_run()
+        r_dot.text = "•  "
+        r_dot.font.name = "Arial"
+        r_dot.font.bold = True
+        r_dot.font.size = Pt(11.5)
+        r_dot.font.color.rgb = BLACK
+
+        r_lbl = p.add_run()
+        r_lbl.text = lbl
+        r_lbl.font.name = "Calibri"
+        r_lbl.font.bold = True
+        r_lbl.font.size = Pt(11.5)
+        r_lbl.font.color.rgb = BLACK
+
+        r_txt = p.add_run()
+        r_txt.text = val
+        r_txt.font.name = "Calibri"
+        r_txt.font.size = Pt(11.5)
+        r_txt.font.bold = True
+        r_txt.font.underline = True
+        r_txt.font.color.rgb = RGBColor(0, 102, 204)
+        r_txt.hyperlink.address = url
 
     # Right: END TO END WORKFLOW badge & diagram
     tb_badge = s6.shapes.add_textbox(Inches(5.7), Inches(1.8), Inches(4.8), Inches(0.4))
@@ -481,15 +546,59 @@ def create_perfect_presentation():
     # Add Speaker notes to all slides
     s1.notes_slide.notes_text_frame.text = "Welcome judges to AutoGov+ presentation. Team Innova8 (T049), Problem Statement SIH26102. Live demo available at: https://printed-blind-lil-arch.trycloudflare.com"
     s2.notes_slide.notes_text_frame.text = "Addressing the issue: Manual challenges take 15-30 days, caseworker fatigue, no cross-department fraud checks. AutoGov+ brings auto-decision in seconds, 100% forgery scanning, and automated judgment."
-    s3.notes_slide.notes_text_frame.text = "Technical Approach: React PWA, FastAPI/Express, PyTorch CNN ELA, XGBoost, FAISS, SHAP explainable AI, and strict AES-256 with TLS 1.3."
+    s3.notes_slide.notes_text_frame.text = "Technical Approach: React PWA, FastAPI/Express, PyTorch CNN ELA, XGBoost, FAISS, SHAP explainable AI, and strict AES-256 with TLS 1.3. Live demo: https://printed-blind-lil-arch.trycloudflare.com"
     s4.notes_slide.notes_text_frame.text = "Feasibility & Viability: Technology is proven, data noise handled via OpenCV preprocessing, saves public funds, empowers caseworkers via Human-in-the-Loop Cockpit."
     s5.notes_slide.notes_text_frame.text = "Impact & Benefits: 10x faster clearances, 3-5 minute targeted officer reviews, 100% forgery detection, duplicate funding prevention, continuous active learning."
     s6.notes_slide.notes_text_frame.text = "Research & References: RTS Act, DPDP Act 2023, MeitY guidelines, CNN ELA, and SHAP explainability. Live demo: https://printed-blind-lil-arch.trycloudflare.com"
 
-    # Save to a fresh, dedicated file
-    out_file = "AutoGov_SIH_Template_Exact.pptx"
-    prs.save(out_file)
-    print(f"Saved successfully: {os.path.abspath(out_file)}")
+    # =========================================================================
+    # ENFORCE EXACT TEMPLATE FONTS ACROSS ALL RUNS
+    # =========================================================================
+    title_phrases = [
+        "SMART INDIA HACKATHON 2025",
+        "TITLE PAGE",
+        "ADDRESSING THE ISSUE",
+        "TECHNICAL APPROACH",
+        "TECHNICAL STACK",
+        "FEASIBILITY AND VIABILITY",
+        "IMPACT AND BENEFITS",
+        "RESEARCH AND REFERENCES"
+    ]
+
+    for slide in prs.slides:
+        for shape in slide.shapes:
+            if shape.has_text_frame:
+                for p in shape.text_frame.paragraphs:
+                    p_text = p.text.strip()
+                    is_title = any(tp in p_text for tp in title_phrases) or (p.font.name == "Times New Roman")
+                    for r in p.runs:
+                        if "•" in r.text:
+                            r.font.name = "Arial"
+                        elif is_title or r.font.name == "Times New Roman":
+                            r.font.name = "Times New Roman"
+                        else:
+                            r.font.name = "Calibri"
+
+    # Save to candidate filenames (handling any file locked by PowerPoint/Office viewer)
+    target_filenames = [
+        "AutoGov_SIH_Final.pptx",
+        "AutoGov_SIH_Submission.pptx",
+        "AutoGov_SIH_Template_Exact.pptx",
+        "AutoGov_SIH_Presentation.pptx"
+    ]
+    saved_files = []
+    for fname in target_filenames:
+        try:
+            prs.save(fname)
+            saved_files.append(os.path.abspath(fname))
+            print(f"Successfully saved: {os.path.abspath(fname)}")
+        except Exception as e:
+            print(f"Could not overwrite {fname} (likely currently open in PowerPoint): {e}")
+
+    if not saved_files:
+        alt_name = "AutoGov_SIH_Generated_v2.pptx"
+        prs.save(alt_name)
+        print(f"Saved to fallback: {os.path.abspath(alt_name)}")
 
 if __name__ == "__main__":
     create_perfect_presentation()
