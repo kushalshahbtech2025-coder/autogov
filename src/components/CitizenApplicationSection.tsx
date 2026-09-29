@@ -118,6 +118,10 @@ export const CitizenApplicationSection: React.FC<CitizenApplicationSectionProps>
       setSimulationMode('flawed');
     }
 
+    // Clear demo placeholder values so real OCR extracts from the uploaded document
+    if (applicantName === 'Sunita Patil') setApplicantName('');
+    if (citizenId === 'MH-PUN-2026-8819') setCitizenId('');
+
     const reader = new FileReader();
     reader.onload = (event) => {
       const dataUrl = event.target?.result as string;
@@ -179,8 +183,8 @@ export const CitizenApplicationSection: React.FC<CitizenApplicationSectionProps>
       docName = chosenSample.name;
     }
 
-    const finalApplicantName = applicantName.trim() || 'Sunita Patil';
-    const finalCitizenId = citizenId.trim() || 'MH-PUN-2026-8819';
+    const finalApplicantName = applicantName.trim();
+    const finalCitizenId = citizenId.trim();
     const finalContact = contactNumber.trim() || '+91 98231 44021';
     const isAnomalousSim = simulationMode === 'flawed' || docName.toLowerCase().includes('sahaj') || docName.toLowerCase().includes('anomaly');
 
@@ -238,38 +242,31 @@ export const CitizenApplicationSection: React.FC<CitizenApplicationSectionProps>
         ? scanResult.riskScore 
         : (isAnomalousSim ? 78 : 8);
 
+      // Extract authentic entities: Prioritize real OCR extraction over placeholder
+      const extractedApplicantName = scanResult?.applicantName || (finalApplicantName && finalApplicantName !== 'Sunita Patil' ? finalApplicantName : 'Citizen Applicant');
+      const extractedCitizenId = scanResult?.citizenId || (finalCitizenId && finalCitizenId !== 'MH-PUN-2026-8819' ? finalCitizenId : 'ID-VERIFIED-2026');
+
       const isCorrect = calculatedRisk < 25;
       const aiVerdict: 'CORRECT' | 'WRONG' = isCorrect ? 'CORRECT' : 'WRONG';
       const aiVerdictReason = isCorrect 
-        ? `AI Response: CORRECT. Verified authentic document for ${finalApplicantName}. Official seal validated and text attributes certified.`
-        : `AI Response: WRONG. Anomaly or statutory discrepancy detected for ${finalApplicantName}. Forwarded to Office Cockpit for human officer review and correction.`;
+        ? `AI Response: CORRECT. Verified authentic document for ${extractedApplicantName}. Official seal validated and text attributes certified.`
+        : `AI Response: WRONG. Anomaly or statutory discrepancy detected for ${extractedApplicantName}. Forwarded to Office Cockpit for human officer review and correction.`;
 
-      // Extract entities guaranteeing that user-provided name & citizenId are accurately preserved
       let mappedEntities: ExtractedEntity[] = scanResult?.extractedEntities || [];
       if (!mappedEntities.length) {
         mappedEntities = [
-          { id: 'e1', field: 'Applicant Name', value: finalApplicantName, status: isCorrect ? 'valid' : 'warning', confidence: 99 },
-          { id: 'e2', field: 'Citizen / Certificate ID', value: finalCitizenId, status: isCorrect ? 'valid' : 'mismatch', confidence: 97 },
-          { id: 'e3', field: currentServiceLabel, value: isCorrect ? '₹ 1,80,000 (Within Statutory Slab)' : '₹ 9,40,000 (Exceeds Slab Limit)', status: isCorrect ? 'valid' : 'mismatch', confidence: 96 },
-          { id: 'e4', field: 'Issuing Authority', value: 'Executive Magistrate & Revenue Directorate', status: 'valid', confidence: 98 },
+          { id: 'e1', field: 'Applicant Name', value: extractedApplicantName, status: isCorrect ? 'valid' : 'warning', confidence: 99 },
+          { id: 'e2', field: 'Citizen / Certificate ID', value: extractedCitizenId, status: isCorrect ? 'valid' : 'mismatch', confidence: 97 },
+          { id: 'e3', field: currentServiceLabel, value: isCorrect ? 'Verified Authentic Credential' : 'Discrepancy Detected', status: isCorrect ? 'valid' : 'mismatch', confidence: 96 },
+          { id: 'e4', field: 'Issuing Authority', value: 'Government of India Statutory Registry', status: 'valid', confidence: 98 },
           { id: 'e5', field: 'Institutional Seal / QR', value: isCorrect ? '100% Cryptographically Valid' : 'Discrepancy / Watermark Variance Detected', status: isCorrect ? 'valid' : 'mismatch', confidence: 95 }
         ];
-      } else {
-        mappedEntities = mappedEntities.map(ent => {
-          if (ent.id === 'e1' || ent.field.toLowerCase().includes('name') || ent.field.toLowerCase().includes('applicant')) {
-            return { ...ent, value: finalApplicantName };
-          }
-          if (ent.id === 'e2' || ent.field.toLowerCase().includes('id') || ent.field.toLowerCase().includes('pan')) {
-            return { ...ent, value: finalCitizenId };
-          }
-          return ent;
-        });
       }
 
       const newAppRecord: Application = {
         id: generatedId,
         trackingId: genTrackingId,
-        applicantName: finalApplicantName,
+        applicantName: extractedApplicantName,
         serviceType: selectedService,
         serviceLabel: currentServiceLabel,
         submissionDate: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),

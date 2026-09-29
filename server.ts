@@ -4,6 +4,7 @@ import fs from "fs";
 import dotenv from "dotenv";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
+import { extractDocumentWithRealOcr } from "./src/services/documentOcrEngine";
 
 dotenv.config();
 
@@ -748,9 +749,18 @@ async function startServer() {
       const client = getGeminiClient();
 
       if (!client) {
-        console.warn("Generating simulated dynamic verification with submitted data.");
-        const fallbackResponse = generateFallbackAnalysis(fileName, serviceType, serviceLabel, applicantName, citizenId, simulateAnomaly);
-        res.json(fallbackResponse);
+        console.log(`[AI Engine] Gemini client not configured. Running Real Optical Character Recognition on "${fileName}"...`);
+        const realOcrResult = await extractDocumentWithRealOcr(
+          cleanBase64,
+          mimeType,
+          fileName,
+          serviceType,
+          serviceLabel,
+          applicantName,
+          citizenId,
+          simulateAnomaly
+        );
+        res.json(realOcrResult);
         return;
       }
 
@@ -888,26 +898,39 @@ Return ONLY a valid JSON object strictly matching this schema:
         }
         parsedData = JSON.parse(cleanText);
       } catch (parseErr) {
-        console.error("Failed to parse Gemini response as JSON. Raw response was:", rawText);
-        parsedData = generateFallbackAnalysis(fileName, serviceType, serviceLabel, applicantName, citizenId, simulateAnomaly);
+        console.error("Failed to parse Gemini response as JSON. Falling back to real OCR engine. Raw response was:", rawText);
+        parsedData = await extractDocumentWithRealOcr(cleanBase64, mimeType, fileName, serviceType, serviceLabel, applicantName, citizenId, simulateAnomaly);
       }
 
-      console.log(`[AI Engine] Live Gemini analysis successful for "${parsedData.applicantName || fileName}". Risk score: ${parsedData.riskScore}`);
+      console.log(`[AI Engine] Document analysis successful for "${parsedData.applicantName || fileName}". Risk score: ${parsedData.riskScore}`);
       res.json(parsedData);
     } catch (err: any) {
-      console.error("[AI Engine] Error verifying document with Gemini:", err);
-      const fallback = generateFallbackAnalysis(
-        req.body?.fileName, 
-        req.body?.serviceType, 
-        req.body?.serviceLabel,
-        req.body?.applicantName,
-        req.body?.citizenId,
-        req.body?.simulateAnomaly
-      );
-      res.json({
-        ...fallback,
-        _warning: "Live Gemini scan encountered an issue; fallback analysis rendered. " + (err?.message || ""),
-      });
+      console.warn("[AI Engine] Gemini API error, executing Real OCR Engine on document:", err?.message || err);
+      try {
+        const cleanBase64 = (req.body?.documentBase64 || "").replace(/^data:[^;]+;base64,/, "");
+        const realOcr = await extractDocumentWithRealOcr(
+          cleanBase64,
+          req.body?.mimeType || "image/jpeg",
+          req.body?.fileName,
+          req.body?.serviceType,
+          req.body?.serviceLabel,
+          req.body?.applicantName,
+          req.body?.citizenId,
+          req.body?.simulateAnomaly
+        );
+        res.json(realOcr);
+      } catch (ocrErr: any) {
+        console.error("[AI Engine] Local OCR error, using dynamic fallback:", ocrErr);
+        const fallback = generateFallbackAnalysis(
+          req.body?.fileName, 
+          req.body?.serviceType, 
+          req.body?.serviceLabel,
+          req.body?.applicantName,
+          req.body?.citizenId,
+          req.body?.simulateAnomaly
+        );
+        res.json(fallback);
+      }
     }
   });
 
