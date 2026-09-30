@@ -6,3 +6,10 @@ coverage/
 *.log
 .env*
 !.env.example
+cloudflared.exe
+config.yml
+eng.traineddata
+~$*
+remix-autogov+/
+sih_page_renders/
+
